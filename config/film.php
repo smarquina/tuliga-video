@@ -8,6 +8,6 @@
  */
 
 return [
-    'default_price'  => 3,
+    'default_price'  => env('FILM_DEFAULT_PRICE', 3),
     'seeding_amount' => 20,
 ];

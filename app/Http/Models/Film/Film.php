@@ -39,6 +39,12 @@ use App\Http\Models\BaseModel;
  * @mixin \Eloquent
  */
 class Film extends BaseModel {
+
+    /**
+     * Disk used for storage.
+     */
+    const DISK = 'films';
+
     /**
      * The database table used by the model.
      *
@@ -78,7 +84,7 @@ class Film extends BaseModel {
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function genre(): \Illuminate\Database\Eloquent\Relations\BelongsTo {
-        return $this->belongsTo(FilmGenre::class);
+        return $this->belongsTo(FilmGenre::class, 'film_genre_id');
     }
 
     /**
@@ -87,6 +93,6 @@ class Film extends BaseModel {
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function type(): \Illuminate\Database\Eloquent\Relations\BelongsTo {
-        return $this->belongsTo(FilmType::class);
+        return $this->belongsTo(FilmType::class, 'film_type_id');
     }
 }

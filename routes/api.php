@@ -14,6 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+/** @var \Dingo\Api\Routing\Router $api */
+$api = app('Dingo\Api\Routing\Router');
+
+$api->version('v1', ['namespace' => 'App\Http\Controllers\Api', 'middleware' => ['api']], function ($api) {
+    /** @var Dingo\Api\Routing\Router $api */
+
+    // Public Routes
+    $api->group(array('prefix' => 'films', 'as' => 'films', 'namespace' => 'Film'), function ($api) {
+        $api->get('all', 'FilmController@listFilms')->name('all');
+
+        $api->get('type/all', 'FilmTypeController@listAll')->name('type.all');
+
+    });
 });

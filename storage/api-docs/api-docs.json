@@ -1,0 +1,181 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Tu liga video API",
+        "description": "Simple API for Tu liga videoclub.",
+        "contact": {
+            "email": "sergyzen@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "0.1"
+    },
+    "servers": [
+        {
+            "url": "",
+            "description": "Simple API for Tu liga videoclub."
+        }
+    ],
+    "paths": {
+        "/api/films/all": {
+            "get": {
+                "tags": [
+                    "film"
+                ],
+                "summary": "list of films",
+                "operationId": "listFilms",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "Filter films by type",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "Pagination size per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Pagination page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of films",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Film"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/films/type/all": {
+            "get": {
+                "tags": [
+                    "film"
+                ],
+                "summary": "list of film types",
+                "operationId": "listAll",
+                "responses": {
+                    "200": {
+                        "description": "A list of film types",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/FilmType"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "FilmGenre": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "nullable": false
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": false
+                    }
+                },
+                "type": "object"
+            },
+            "Film": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "nullable": false
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": false
+                    },
+                    "description": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "type": {
+                        "nullable": false,
+                        "$ref": "#/components/schemas/FilmType"
+                    },
+                    "genre": {
+                        "nullable": false,
+                        "$ref": "#/components/schemas/FilmGenre"
+                    },
+                    "image": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "last_updated": {
+                        "type": "string",
+                        "nullable": false
+                    }
+                },
+                "type": "object"
+            },
+            "FilmType": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "nullable": false
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": false
+                    },
+                    "normal_days": {
+                        "type": "integer",
+                        "nullable": false
+                    },
+                    "normal_price": {
+                        "type": "number",
+                        "nullable": false
+                    },
+                    "extra_price": {
+                        "type": "number",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "film",
+            "description": "view and book films"
+        }
+    ]
+}

@@ -24,8 +24,7 @@ class FilmTypeSeeder extends Seeder {
              'normal_price' => null,
              'extra_price'  => 4]
         ])
-            ->each(function ($type) {
-//                list($name, $normal_days, $normal_price, $extra_price) = $type
+            ->each(static function ($type) {
                 (new FilmType($type))->save();
             });
     }

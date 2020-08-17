@@ -16,6 +16,6 @@ $factory->define(Film::class, function (Faker $faker) {
         'description'   => $faker->realText(250),
         'film_genre_id' => $genres->random(),
         'film_type_id'  => $types->random(),
-        'image'         => $faker->unique()->image('public/storage/images'),
+        'image'         => $faker->unique()->image('public/storage/films', 640, 480, null, false),
     ];
 });
