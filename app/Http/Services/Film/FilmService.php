@@ -14,14 +14,24 @@ use App\Http\Models\Film\Film;
 
 class FilmService {
 
-    public static function filterFilms(int $type = null, int $genre = null) {
-        $films = isset($type) || isset($genre)
-            ? Film::select(['*'])
-            : Film::all();
+    /**
+     * Film price calculator.
+     *
+     * @param Film $film
+     * @param int  $days
+     * @return float|int
+     */
+    public function calculatePrice(Film $film, int $days) {
+        $type = $film->type;
 
-        $type === null ?: $films = $films->where('film_type_id', $type);
-        $genre === null ?: $films = $films->where('film_genre_id', $genre);
+        if (!$type->normal_days) {
+            $price = $days * $type->normal_price;
+        } else {
+            $normalDays = $days >= $type->normal_days ? $type->normal_days : $days;
+            $extraDays  = $days >= $type->normal_days ? $days - $normalDays : 0;
+            $price      = ($normalDays * $type->normal_price) + ($extraDays * $type->extra_price);
+        }
 
-        return $films->get();
+        return $price;
     }
 }

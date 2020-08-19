@@ -23,8 +23,8 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\Api', 'middleware' => 
     // Public Routes
     $api->group(array('prefix' => 'films', 'as' => 'films', 'namespace' => 'Film'), function ($api) {
         $api->get('all', 'FilmController@listFilms')->name('all');
+        $api->post('book/price', 'FilmController@calculatePrice')->name('calculatePrice');
 
         $api->get('type/all', 'FilmTypeController@listAll')->name('type.all');
-
     });
 });

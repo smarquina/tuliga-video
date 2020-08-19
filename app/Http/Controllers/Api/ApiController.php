@@ -76,7 +76,6 @@ class ApiController extends Controller {
     /**
      * Simulates the Model::paginate response to make all Json responses uniform.
      *
-     * @param Collection              $collection
      * @param ResourceCollection|null $resourceCollection
      * @param integer|null            $pageLength
      * @return array
@@ -102,5 +101,9 @@ class ApiController extends Controller {
                                       'page'       => (int)$lapData['current_page'],
                                       'from'       => (int)$lapData['from'],
                                       'to'         => (int)$lapData['to'],]);
+    }
+
+    public function jsonResponse(array $data) {
+        return response()->json(compact('data'));
     }
 }

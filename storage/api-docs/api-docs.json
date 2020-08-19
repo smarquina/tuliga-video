@@ -72,6 +72,92 @@
                 }
             }
         },
+        "/api/films/book/price": {
+            "post": {
+                "tags": [
+                    "film"
+                ],
+                "summary": "Request films price",
+                "operationId": "calculatePrice",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "date_begin": {
+                                        "description": "Required. US date format",
+                                        "type": "string"
+                                    },
+                                    "films": {
+                                        "description": "Required",
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "film_id": {
+                                                    "description": "Required",
+                                                    "type": "integer"
+                                                },
+                                                "date_end": {
+                                                    "description": "Required. US date format",
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "films": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "film": {
+                                                                "$ref": "#/components/schemas/Film"
+                                                            },
+                                                            "period": {
+                                                                "type": "integer"
+                                                            },
+                                                            "price": {
+                                                                "type": "integer"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "total_price": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error ocurred"
+                    },
+                    "422": {
+                        "description": "Request invalid. see errors"
+                    }
+                }
+            }
+        },
         "/api/films/type/all": {
             "get": {
                 "tags": [
